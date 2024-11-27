@@ -1,0 +1,376 @@
+<html><head><base href="." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Constrular - Materiais de Construção</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+  }
+
+  :root {
+    --primary: #e65100;
+    --secondary: #ff8f00;
+    --light: #fff3e0;
+    --dark: #263238;
+  }
+
+  /* Adicionando scroll suave para toda a página */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  header {
+    background: rgba(230, 81, 0, 0.95);
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .logo:hover {
+    transform: scale(1.05);
+  }
+
+  .menu {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    position: relative;
+  }
+
+  .menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: white;
+    transition: 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .menu a:hover::after {
+    width: 80%;
+  }
+
+  .hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(transparent, white);
+  }
+
+  .hero-content {
+    transform: translateY(-2rem);
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .cta-button {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.3);
+  }
+
+  .cta-button:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4);
+  }
+
+  .products {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+  }
+
+  .products h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary);
+    font-size: 2.5rem;
+    position: relative;
+  }
+
+  .products h2::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background: var(--primary);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .product-card {
+    border: none;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: 0.4s ease;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: 0.4s ease;
+    z-index: -1;
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    color: white;
+  }
+
+  .product-card:hover::before {
+    opacity: 1;
+  }
+
+  .product-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    transition: 0.4s ease;
+  }
+
+  .product-card:hover .product-icon {
+    fill: white !important;
+  }
+
+  .product-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .price {
+    font-weight: bold;
+    color: var(--primary);
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .product-card:hover .price {
+    color: white;
+  }
+
+  footer {
+    background: var(--dark);
+    color: white;
+    padding: 3rem;
+    text-align: center;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  .floating {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Responsividade para dispositivos móveis */
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .products {
+      padding: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+          <path d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7L16.2,12H7.8L12,7.7M7,18V14H17V18H7Z"/>
+        </svg>
+        Constrular
+      </div>
+      <div class="menu">
+        <a href="https://example.com/produtos">Produtos</a>
+        <a href="https://example.com/servicos">Serviços</a>
+        <a href="https://example.com/sobre">Sobre</a>
+        <a href="https://example.com/contato">Contato</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Construa seus sonhos conosco</h1>
+      <p>Os melhores materiais de construção para sua obra</p>
+      <button class="cta-button">Conheça nossos produtos</button>
+    </div>
+  </section>
+
+  <section class="products">
+    <h2>Produtos em Destaque</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <svg class="product-icon" viewBox="0 0 24 24" fill="var(--primary)">
+          <path d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7L16.2,12H7.8L12,7.7M7,18V14H17V18H7Z"/>
+        </svg>
+        <h3>Cimento</h3>
+        <p>Todas as marcas</p>
+        <p class="price">A partir de R$ 28,90</p>
+      </div>
+
+      <div class="product-card">
+        <svg class="product-icon" viewBox="0 0 24 24" fill="var(--primary)">
+          <path d="M19,6H5A2,2 0 0,0 3,8V16A2,2 0 0,0 5,18H19A2,2 0 0,0 21,16V8A2,2 0 0,0 19,6M19,16H5V8H19V16Z"/>
+        </svg>
+        <h3>Tijolos</h3>
+        <p>Diversos modelos</p>
+        <p class="price">A partir de R$ 1,20/un</p>
+      </div>
+
+      <div class="product-card">
+        <svg class="product-icon" viewBox="0 0 24 24" fill="var(--primary)">
+          <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+        </svg>
+        <h3>Areia</h3>
+        <p>Fina e grossa</p>
+        <p class="price">A partir de R$ 120,00/m³</p>
+      </div>
+
+      <div class="product-card">
+        <svg class="product-icon" viewBox="0 0 24 24" fill="var(--primary)">
+          <path d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z"/>
+        </svg>
+        <h3>Ferramentas</h3>
+        <p>Linha completa</p>
+        <p class="price">Diversos preços</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 Constrular - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    // Smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Hover animations for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.querySelector('.product-icon').classList.add('floating');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.querySelector('.product-icon').classList.remove('floating');
+      });
+    });
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero');
+      const scrolled = window.pageYOffset;
+      hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+    });
+  </script>
+</body>
+</html>
